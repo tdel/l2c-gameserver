@@ -14,7 +14,7 @@ public class Crypt {
     }
 
     public void encrypt(ByteBuf buf) {
-        if (!_isEnabled) {
+        if (!_isEnabled) { // Initial packet is not encrypted.
             _isEnabled = true;
             return;
         }

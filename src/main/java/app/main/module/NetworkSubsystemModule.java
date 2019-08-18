@@ -3,6 +3,7 @@ package app.main.module;
 import app.kernel.subsystem.network.gameclient.GameClientChannelInitializer;
 import app.kernel.subsystem.network.gameclient.GameClientServer;
 import app.kernel.subsystem.network.gameclient.packets.security.BlowfishKeygen;
+import app.kernel.subsystem.network.gameclient.packets.security.Crypt;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 
