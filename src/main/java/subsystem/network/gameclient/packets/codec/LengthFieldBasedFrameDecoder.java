@@ -1,4 +1,4 @@
-package app.kernel.subsystem.network.gameclient.packets.codec;
+package subsystem.network.gameclient.packets.codec;
 
 import io.netty.channel.ChannelHandler;
 

@@ -1,4 +1,4 @@
-package app.kernel.subsystem;
+package subsystem;
 
 import com.google.inject.Inject;
 import app.kernel.Kernel;

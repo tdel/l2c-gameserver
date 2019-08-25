@@ -1,4 +1,4 @@
-package app.kernel.subsystem.network.gameclient.packets;
+package subsystem.network.gameclient.packets;
 
 import io.netty.buffer.ByteBuf;
 

@@ -1,14 +1,17 @@
-package app.kernel.subsystem.network;
+package subsystem.network;
 
 import app.kernel.Kernel;
-import app.kernel.subsystem.AbstractKernelSubsystem;
-import app.kernel.subsystem.network.core.NetworkServer;
-import app.kernel.subsystem.network.gameclient.GameClientServer;
+import subsystem.AbstractKernelSubsystem;
+import subsystem.network.core.NetworkServer;
+import subsystem.network.gameclient.GameClientServer;
 import com.google.inject.Inject;
+import subsystem.network.loginserver.LoginServerClient;
 
 public class NetworkSubsystem extends AbstractKernelSubsystem {
 
     private NetworkServer gameClientServer;
+
+    private LoginServerClient loginServerClient;
 
     @Inject
     public NetworkSubsystem(Kernel _kernel) {
@@ -17,10 +20,15 @@ public class NetworkSubsystem extends AbstractKernelSubsystem {
 
     @Override
     protected void onModuleStart() throws Exception {
-        int gameClientPort = this.getKernelParameter("app.kernel.subsystem.network.gameclient.server.port");
+        int gameClientPort = this.getKernelParameter("subsystem.network.gameclient.server.port");
 
         this.gameClientServer = this.getService(GameClientServer.class);
         this.gameClientServer.start(gameClientPort);
+
+
+        this.loginServerClient = this.getService(LoginServerClient.class);
+        this.loginServerClient.start("127.0.0.1", 1234);
+
     }
 
     @Override

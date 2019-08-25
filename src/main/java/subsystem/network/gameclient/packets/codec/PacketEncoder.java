@@ -1,7 +1,7 @@
-package app.kernel.subsystem.network.gameclient.packets.codec;
+package subsystem.network.gameclient.packets.codec;
 
-import app.kernel.subsystem.network.gameclient.packets.OutgoingGameClientPacketInterface;
-import app.kernel.subsystem.network.gameclient.packets.PacketWriter;
+import subsystem.network.gameclient.packets.OutgoingGameClientPacketInterface;
+import subsystem.network.gameclient.packets.PacketWriter;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;

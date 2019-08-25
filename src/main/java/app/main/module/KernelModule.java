@@ -1,10 +1,10 @@
 package app.main.module;
 
-import app.kernel.subsystem.network.NetworkSubsystem;
+import subsystem.network.NetworkSubsystem;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import app.kernel.Kernel;
-import app.kernel.subsystem.AbstractKernelSubsystem;
+import subsystem.AbstractKernelSubsystem;
 
 import java.util.HashSet;
 import java.util.Set;

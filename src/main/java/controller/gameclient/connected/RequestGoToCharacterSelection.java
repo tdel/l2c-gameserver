@@ -1,8 +1,8 @@
 package controller.gameclient.connected;
 
-import app.kernel.subsystem.network.gameclient.ChannelHandler;
-import app.kernel.subsystem.network.gameclient.packets.IncomingGameClientPacketInterface;
-import app.kernel.subsystem.network.gameclient.packets.PacketReader;
+import subsystem.network.gameclient.ChannelHandler;
+import subsystem.network.gameclient.packets.IncomingGameClientPacketInterface;
+import subsystem.network.gameclient.packets.PacketReader;
 import view.gameclient.connected.ShowAllCharacters;
 
 public class RequestGoToCharacterSelection implements IncomingGameClientPacketInterface {

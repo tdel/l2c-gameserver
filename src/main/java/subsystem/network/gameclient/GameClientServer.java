@@ -1,6 +1,6 @@
-package app.kernel.subsystem.network.gameclient;
+package subsystem.network.gameclient;
 
-import app.kernel.subsystem.network.core.NetworkServer;
+import subsystem.network.core.NetworkServer;
 import com.google.inject.Inject;
 
 public class GameClientServer extends NetworkServer {

@@ -1,11 +1,11 @@
-package app.kernel.subsystem.network.gameclient;
+package subsystem.network.gameclient;
 
 import app.kernel.Kernel;
-import app.kernel.subsystem.network.gameclient.packets.IncomingGameClientPacketInterface;
-import app.kernel.subsystem.network.gameclient.packets.OutgoingGameClientPacketInterface;
-import app.kernel.subsystem.network.gameclient.packets.PacketReader;
-import app.kernel.subsystem.network.gameclient.packets.security.BlowfishKeygen;
-import app.kernel.subsystem.network.gameclient.packets.security.Crypt;
+import subsystem.network.gameclient.packets.IncomingGameClientPacketInterface;
+import subsystem.network.gameclient.packets.OutgoingGameClientPacketInterface;
+import subsystem.network.gameclient.packets.PacketReader;
+import subsystem.network.gameclient.packets.security.BlowfishKeygen;
+import subsystem.network.gameclient.packets.security.Crypt;
 import controller.gameclient.connected.CheckProtocolVersion;
 import controller.gameclient.connected.RequestGoToCharacterSelection;
 import controller.gameclient.connected.RequestNewCharacter;

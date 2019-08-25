@@ -1,4 +1,4 @@
-package app.kernel.subsystem.network.core;
+package subsystem.network.core;
 
 
 import io.netty.bootstrap.ServerBootstrap;

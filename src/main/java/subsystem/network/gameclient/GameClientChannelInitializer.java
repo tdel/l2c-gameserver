@@ -1,11 +1,11 @@
-package app.kernel.subsystem.network.gameclient;
+package subsystem.network.gameclient;
 
 import app.kernel.Kernel;
-import app.kernel.subsystem.network.gameclient.packets.codec.CryptCodec;
-import app.kernel.subsystem.network.gameclient.packets.codec.LengthFieldBasedFrameEncoder;
-import app.kernel.subsystem.network.gameclient.packets.codec.PacketEncoder;
-import app.kernel.subsystem.network.gameclient.packets.security.BlowfishKeygen;
-import app.kernel.subsystem.network.gameclient.packets.security.Crypt;
+import subsystem.network.gameclient.packets.codec.CryptCodec;
+import subsystem.network.gameclient.packets.codec.LengthFieldBasedFrameEncoder;
+import subsystem.network.gameclient.packets.codec.PacketEncoder;
+import subsystem.network.gameclient.packets.security.BlowfishKeygen;
+import subsystem.network.gameclient.packets.security.Crypt;
 import com.google.inject.Inject;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;

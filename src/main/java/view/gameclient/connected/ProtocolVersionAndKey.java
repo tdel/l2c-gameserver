@@ -1,7 +1,7 @@
 package view.gameclient.connected;
 
-import app.kernel.subsystem.network.gameclient.packets.OutgoingGameClientPacketInterface;
-import app.kernel.subsystem.network.gameclient.packets.PacketWriter;
+import subsystem.network.gameclient.packets.OutgoingGameClientPacketInterface;
+import subsystem.network.gameclient.packets.PacketWriter;
 
 public class ProtocolVersionAndKey implements OutgoingGameClientPacketInterface {
 
@@ -17,7 +17,7 @@ public class ProtocolVersionAndKey implements OutgoingGameClientPacketInterface 
 
     @Override
     public void write(PacketWriter _writer) {
-        _writer.writeD(0x2E);
+        _writer.writeC(0x2E);
 
         _writer.writeC(protocol ? 1 : 0);
 

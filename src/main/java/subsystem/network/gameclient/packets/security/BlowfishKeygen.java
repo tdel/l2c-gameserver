@@ -1,4 +1,4 @@
-package app.kernel.subsystem.network.gameclient.packets.security;
+package subsystem.network.gameclient.packets.security;
 
 import util.Rnd;
 

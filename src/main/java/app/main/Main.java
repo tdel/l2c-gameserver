@@ -5,7 +5,7 @@ import com.google.inject.Injector;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import app.kernel.Kernel;
 import app.kernel.KernelEnvironment;
-import app.kernel.subsystem.AbstractKernelSubsystem;
+import subsystem.AbstractKernelSubsystem;
 import app.main.module.*;
 
 import java.util.Set;

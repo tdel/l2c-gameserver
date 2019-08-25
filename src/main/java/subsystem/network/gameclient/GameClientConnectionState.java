@@ -1,4 +1,4 @@
-package app.kernel.subsystem.network.gameclient;
+package subsystem.network.gameclient;
 
 public enum GameClientConnectionState {
     CONNECTED,

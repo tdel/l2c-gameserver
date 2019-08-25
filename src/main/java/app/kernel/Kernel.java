@@ -2,7 +2,7 @@ package app.kernel;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import app.kernel.subsystem.AbstractKernelSubsystem;
+import subsystem.AbstractKernelSubsystem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -69,7 +69,7 @@ public class Kernel {
 
     private void loadConfiguration() {
         this.configuration.put("app.kernel.environment", this.env);
-        this.configuration.put("app.kernel.subsystem.network.gameclient.server.port", 7777);
+        this.configuration.put("subsystem.network.gameclient.server.port", 7777);
     }
 
     public <T> T getConfigParam(String _name) {

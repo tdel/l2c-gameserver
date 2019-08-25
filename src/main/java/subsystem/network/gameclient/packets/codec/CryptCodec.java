@@ -1,6 +1,6 @@
-package app.kernel.subsystem.network.gameclient.packets.codec;
+package subsystem.network.gameclient.packets.codec;
 
-import app.kernel.subsystem.network.gameclient.packets.security.Crypt;
+import subsystem.network.gameclient.packets.security.Crypt;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
