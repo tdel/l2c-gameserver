@@ -6,7 +6,8 @@ import network.gameclient.GameClientConnectionState;
 import network.gameclient.packets.IncomingGameClientPacketInterface;
 import network.gameclient.packets.PacketReader;
 import view.gameclient.ingame.ActionFail;
-import view.gameclient.ingame.PlayerInfo;
+import view.gameclient.ingame.CharacterInfo;
+import view.gameclient.ingame.PlayerStatsInfo;
 import view.gameclient.ingame.ValidateLocation;
 
 public class EnterWorld implements IncomingGameClientPacketInterface {
@@ -20,7 +21,8 @@ public class EnterWorld implements IncomingGameClientPacketInterface {
 
 
 
-        _client.sendPacket(new PlayerInfo(player));
+        _client.sendPacket(new PlayerStatsInfo(player));
+        //_client.sendPacket(new CharacterInfo(player));
 
         // Prevent relogin in game gfx.
         _client.sendPacket(new ValidateLocation(player));

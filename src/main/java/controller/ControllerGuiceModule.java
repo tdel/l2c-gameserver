@@ -3,6 +3,8 @@ package controller;
 import com.google.inject.Singleton;
 import controller.gameclient.authed.*;
 import controller.gameclient.connected.*;
+import controller.gameclient.ingame.RequestMoveToLocation;
+import controller.gameclient.ingame.RequestValidatePosition;
 import controller.gameclient.loadinggame.EnterWorld;
 import controller.gameclient.loadinggame.ex.RequestKeyMapping;
 import controller.gameclient.loadinggame.ex.RequestManorList;
@@ -22,6 +24,8 @@ public class ControllerGuiceModule extends AbstractApplicationModule {
         this.bindToPacketInterface(AuthLogin.class);
         this.bindToPacketInterface(RequestCharacterSelection.class);
         this.bindToPacketInterface(EnterWorld.class);
+        this.bindToPacketInterface(RequestMoveToLocation.class);
+        this.bindToPacketInterface(RequestValidatePosition.class);
 
         this.bindToPacketInterfaceEX(RequestGoToCharacterSelection.class);
         this.bindToPacketInterfaceEX(RequestManorList.class);

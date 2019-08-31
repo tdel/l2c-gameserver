@@ -5,11 +5,41 @@ import model.entity.instance.PlayerInstance;
 import network.gameclient.packets.OutgoingGameClientPacketInterface;
 import network.gameclient.packets.PacketWriter;
 
-public class PlayerInfo implements OutgoingGameClientPacketInterface {
+public class PlayerStatsInfo implements OutgoingGameClientPacketInterface {
+
+    int[] PAPERDOLL_ORDER = new int[]
+            {
+                    Inventory.PAPERDOLL_UNDER,
+                    Inventory.PAPERDOLL_REAR,
+                    Inventory.PAPERDOLL_LEAR,
+                    Inventory.PAPERDOLL_NECK,
+                    Inventory.PAPERDOLL_RFINGER,
+                    Inventory.PAPERDOLL_LFINGER,
+                    Inventory.PAPERDOLL_HEAD,
+                    Inventory.PAPERDOLL_RHAND,
+                    Inventory.PAPERDOLL_LHAND,
+                    Inventory.PAPERDOLL_GLOVES,
+                    Inventory.PAPERDOLL_CHEST,
+                    Inventory.PAPERDOLL_LEGS,
+                    Inventory.PAPERDOLL_FEET,
+                    Inventory.PAPERDOLL_CLOAK,
+                    Inventory.PAPERDOLL_RHAND,
+                    Inventory.PAPERDOLL_HAIR,
+                    Inventory.PAPERDOLL_HAIR2,
+                    Inventory.PAPERDOLL_RBRACELET,
+                    Inventory.PAPERDOLL_LBRACELET,
+                    Inventory.PAPERDOLL_DECO1,
+                    Inventory.PAPERDOLL_DECO2,
+                    Inventory.PAPERDOLL_DECO3,
+                    Inventory.PAPERDOLL_DECO4,
+                    Inventory.PAPERDOLL_DECO5,
+                    Inventory.PAPERDOLL_DECO6,
+                    Inventory.PAPERDOLL_BELT
+            };
 
     private PlayerInstance player;
 
-    public PlayerInfo(PlayerInstance _player) {
+    public PlayerStatsInfo(PlayerInstance _player) {
         this.player = _player;
     }
 
@@ -32,7 +62,7 @@ public class PlayerInfo implements OutgoingGameClientPacketInterface {
         _writer.writeD(this.player.getLevel());
         _writer.writeQ(this.player.getExp());
 
-        _writer.writeF(1000); // exp needed ?
+        _writer.writeF(9.99); // exp % until next level
 
         _writer.writeD(this.player.getSTR());
         _writer.writeD(this.player.getDEX());
@@ -40,30 +70,31 @@ public class PlayerInfo implements OutgoingGameClientPacketInterface {
         _writer.writeD(this.player.getINT());
         _writer.writeD(this.player.getWIT());
         _writer.writeD(this.player.getMEN());
-        _writer.writeD(1000); // maxHP
+        _writer.writeD(this.player.getMaxHP());
         _writer.writeD(this.player.getCurrentHP());
-        _writer.writeD(1000); // max MP
+        _writer.writeD(this.player.getMaxMP());
         _writer.writeD(this.player.getCurrentMP());
         _writer.writeD(this.player.getCurrentSP());
-        _writer.writeD(0); // current Load
-        _writer.writeD(10000); // max load
+        _writer.writeD(this.player.getInventoryLoad()); // current Load
+        _writer.writeD(this.player.getMaxInventoryLoad()); // max load
 
         _writer.writeD(20); // 20 no weapon equiped, 40 equipped
 
-        for (int slot : Inventory.PAPERDOLL_ORDER) {
+        for (int slot : PAPERDOLL_ORDER) {
             _writer.writeD(0x00);  // object id
         }
 
-        for (int slot : Inventory.PAPERDOLL_ORDER) {
+        for (int slot : PAPERDOLL_ORDER) {
             _writer.writeD(0x00);  // item display Id !
         }
 
-        for (int slot : Inventory.PAPERDOLL_ORDER) {
+        for (int slot : PAPERDOLL_ORDER) {
             _writer.writeD(0x00);  // augmentationId
         }
 
         _writer.writeD(0); // talisman slot
         _writer.writeD(0); // equip cloak
+
         _writer.writeD(this.player.getPAtk());
         _writer.writeD(this.player.getPAtkSpd());
         _writer.writeD(this.player.getPDef());
@@ -74,13 +105,15 @@ public class PlayerInfo implements OutgoingGameClientPacketInterface {
         _writer.writeD(this.player.getMAtkSpd());
         _writer.writeD(this.player.getPAtkSpd());
         _writer.writeD(this.player.getMDef());
-        _writer.writeD(0);// pvp flag
+        _writer.writeD(this.player.isPvPFlag() ? 1 : 0);
         _writer.writeD(this.player.getKarma());
 
         _writer.writeD(this.player.getRunSpd());
         _writer.writeD(this.player.getWalkSpd());
         _writer.writeD(this.player.getSwimRunSpd());
         _writer.writeD(this.player.getSwimWalkSpd());
+        _writer.writeD(this.player.getFlyRunSpd());
+        _writer.writeD(this.player.getFlyWalkSpd());
         _writer.writeD(this.player.getFlyRunSpd());
         _writer.writeD(this.player.getFlyWalkSpd());
         _writer.writeF(this.player.getMoveMultiplier());
@@ -120,8 +153,8 @@ public class PlayerInfo implements OutgoingGameClientPacketInterface {
 
         _writer.writeD(this.player.getCharacter().getId());
         _writer.writeD(0x00); //  special effects? circles around player...
-        _writer.writeD(10000); // max CP
-        _writer.writeD(10); // current CP;
+        _writer.writeD(this.player.getMaxCP()); // max CP
+        _writer.writeD(this.player.getCurrentCP()); // current CP;
         _writer.writeC(0); // mounted ?
 
         _writer.writeC(0); // team ID

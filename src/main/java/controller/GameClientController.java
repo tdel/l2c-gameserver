@@ -8,6 +8,8 @@ import controller.gameclient.connected.AuthLogin;
 import controller.gameclient.connected.CheckProtocolVersion;
 import controller.gameclient.authed.RequestCharacterCreation;
 import controller.gameclient.authed.RequestNewCharacter;
+import controller.gameclient.ingame.RequestMoveToLocation;
+import controller.gameclient.ingame.RequestValidatePosition;
 import controller.gameclient.loadinggame.EnterWorld;
 import network.gameclient.GameClientChannelHandler;
 import network.gameclient.GameClientConnectionState;
@@ -21,7 +23,7 @@ import java.util.Map;
 
 public class GameClientController {
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger("network");
 
     private final Map<GameClientConnectionState, Map<Integer, Provider<IncomingGameClientPacketInterface>>> controllers;
     private final ExGameClientController exController;
@@ -51,7 +53,12 @@ public class GameClientController {
                 put(0x11, _controllers.get(EnterWorld.class));
             }
         });
-
+        this.controllers.put(GameClientConnectionState.INGAME, new HashMap<>() {
+            {
+                put(0x0F, _controllers.get(RequestMoveToLocation.class));
+                put(0x59, _controllers.get(RequestValidatePosition.class));
+            }
+        });
     }
 
     public IncomingGameClientPacketInterface handle(PacketReader _reader, GameClientChannelHandler _client) {

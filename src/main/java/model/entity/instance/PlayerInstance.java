@@ -10,11 +10,37 @@ public class PlayerInstance {
     private GameClientChannelHandler network;
     private L2Character character;
 
+    private String title;
+
+    private int hp;
+    private int mp;
+    private int inventoryLoad;
+
+    private int x;
+    private int y;
+    private int z;
+    private int heading;
+
+    private boolean pvpFlag;
+
 
     public PlayerInstance(int _id, L2Character _character, GameClientChannelHandler _network) {
         this.id = _id;
         this.character = _character;
         this.network = _network;
+
+        this.title = "";
+
+        this.hp = 100;
+        this.mp = 100;
+        this.inventoryLoad = 0;
+
+        this.x = 46934;
+        this.y = 51467;
+        this.z = -2927; // -2977;
+        this.heading = 0;
+
+        this.pvpFlag = false;
     }
 
 
@@ -31,7 +57,7 @@ public class PlayerInstance {
     }
 
     public String getTitle() {
-        return "";
+        return this.title;
     }
 
     public int getClanId() {
@@ -39,30 +65,62 @@ public class PlayerInstance {
     }
 
     public int getX() {
-        return -81447;
+        return this.x;
     }
 
     public int getY() {
-        return 152760;
+        return this.y;
     }
 
     public int getZ() {
-        return -3170;
+        return this.z;
     }
 
     public int getHeading() {
-        return 0;
+        return this.heading;
+    }
+
+    public void setCoordinates(int _x, int _y, int _z, int _heading) {
+        this.x = _x;
+        this.y = _y;
+        this.z = _z;
+        this.heading = _heading;
     }
 
     public int getCurrentHP() {
+        return this.hp;
+    }
+
+    public int getMaxHP() {
         return 100;
     }
 
     public int getCurrentMP() {
+        return this.mp;
+    }
+
+    public int getMaxMP() {
         return 100;
     }
 
     public int getCurrentSP() {
+        return 100;
+    }
+
+
+    public int getMaxCP() {
+        return 100;
+    }
+
+    public int getCurrentCP() {
+        return 0;
+    }
+
+    public int getInventoryLoad() {
+        return this.inventoryLoad;
+    }
+
+    public int getMaxInventoryLoad() {
         return 100;
     }
 
@@ -84,6 +142,10 @@ public class PlayerInstance {
 
     public int getPVPKills() {
         return 0;
+    }
+
+    public boolean isPvPFlag() {
+        return this.pvpFlag;
     }
 
     public int getINT() {
@@ -147,11 +209,11 @@ public class PlayerInstance {
     }
 
     public int getRunSpd() {
-        return 120;
+        return 250;
     }
 
     public int getWalkSpd() {
-        return 90;
+        return 180;
     }
 
     public int getSwimRunSpd() {
@@ -179,11 +241,11 @@ public class PlayerInstance {
     }
 
     public double getCollisionRadius() {
-        return 100;
+        return 6.5;
     }
 
     public double getCollisionHeight() {
-        return 100;
+        return 25;
     }
 
     public void sendPacket(OutgoingGameClientPacketInterface _packet) {

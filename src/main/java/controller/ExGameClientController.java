@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class ExGameClientController {
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger("network");
 
     private final Map<GameClientConnectionState, Map<Integer, Provider<ExPacketInterface>>> controllers;
 
@@ -41,6 +41,7 @@ public class ExGameClientController {
                 put(0x21, _controllers.get(RequestKeyMapping.class));
             }
         });
+
     }
 
     public ExPacketInterface handle(PacketReader _reader, GameClientChannelHandler _client) {

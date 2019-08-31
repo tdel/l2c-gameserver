@@ -15,7 +15,7 @@ import java.nio.ByteOrder;
 @ChannelHandler.Sharable
 public class PacketEncoder extends MessageToByteEncoder<OutgoingGameClientPacketInterface>
 {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger("network");
 
     private final ByteOrder byteOrder;
     private final int maxPacketSize;
