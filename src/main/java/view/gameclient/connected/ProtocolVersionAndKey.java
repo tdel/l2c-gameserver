@@ -1,7 +1,7 @@
 package view.gameclient.connected;
 
-import subsystem.network.gameclient.packets.OutgoingGameClientPacketInterface;
-import subsystem.network.gameclient.packets.PacketWriter;
+import network.gameclient.packets.OutgoingGameClientPacketInterface;
+import network.gameclient.packets.PacketWriter;
 
 public class ProtocolVersionAndKey implements OutgoingGameClientPacketInterface {
 

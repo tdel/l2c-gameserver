@@ -1,14 +1,12 @@
-package view.gameclient.connected;
+package view.gameclient.authed;
 
 import network.gameclient.packets.OutgoingGameClientPacketInterface;
 import network.gameclient.packets.PacketWriter;
 
-public class CharacterCreationOK implements OutgoingGameClientPacketInterface {
+public class CharacterDeleted implements OutgoingGameClientPacketInterface {
 
     @Override
     public void write(PacketWriter _writer) {
-        _writer.writeC(0x0F);
-
-        _writer.writeD(0x01);
+        _writer.writeC(0x1D);
     }
 }

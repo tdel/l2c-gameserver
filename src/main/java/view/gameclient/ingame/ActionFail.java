@@ -1,14 +1,12 @@
-package view.gameclient.connected;
+package view.gameclient.ingame;
 
 import network.gameclient.packets.OutgoingGameClientPacketInterface;
 import network.gameclient.packets.PacketWriter;
 
-public class CharacterCreationOK implements OutgoingGameClientPacketInterface {
+public class ActionFail implements OutgoingGameClientPacketInterface {
 
     @Override
     public void write(PacketWriter _writer) {
-        _writer.writeC(0x0F);
-
-        _writer.writeD(0x01);
+        _writer.writeC(0x1F);
     }
 }
