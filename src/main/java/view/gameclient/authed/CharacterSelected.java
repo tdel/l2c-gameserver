@@ -28,7 +28,7 @@ public class CharacterSelected implements OutgoingGameClientPacketInterface {
         _writer.writeD(0x00); // ?
         _writer.writeD(this.player.getCharacter().getAppearence().getSex().ordinal());
         _writer.writeD(this.player.getCharacter().getTemplate().getRace().getId()); // race
-        _writer.writeD(this.player.getCharacter().getTemplate().getId());
+        _writer.writeD(this.player.getCharacter().getTemplate().getClassId());
         _writer.writeD(0x01); // active ?
         _writer.writeD(this.player.getX());
         _writer.writeD(this.player.getY());
@@ -53,7 +53,7 @@ public class CharacterSelected implements OutgoingGameClientPacketInterface {
         _writer.writeD(0); // Game time !
         _writer.writeD(0x00);
 
-        _writer.writeD(this.player.getCharacter().getTemplate().getId());
+        _writer.writeD(this.player.getCharacter().getTemplate().getClassId());
 
         _writer.writeD(0x00);
         _writer.writeD(0x00);

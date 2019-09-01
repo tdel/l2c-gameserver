@@ -4,6 +4,9 @@ import model.entity.L2Character;
 import network.gameclient.GameClientChannelHandler;
 import network.gameclient.packets.OutgoingGameClientPacketInterface;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class PlayerInstance {
 
     private int id;
@@ -21,13 +24,21 @@ public class PlayerInstance {
     private int z;
     private int heading;
 
+    private int destinationX;
+    private int destinationY;
+    private int destinationZ;
+
     private boolean pvpFlag;
+
+    private Map<Integer, PlayerInstance> nearbyPlayers;
 
 
     public PlayerInstance(int _id, L2Character _character, GameClientChannelHandler _network) {
         this.id = _id;
         this.character = _character;
         this.network = _network;
+
+        this.nearbyPlayers = new HashMap<>();
 
         this.title = "";
 
@@ -85,6 +96,12 @@ public class PlayerInstance {
         this.y = _y;
         this.z = _z;
         this.heading = _heading;
+    }
+
+    public void setDestinationCoordinates(int _x, int _y, int _z) {
+        this.destinationX = _x;
+        this.destinationY = _y;
+        this.destinationZ = _z;
     }
 
     public int getCurrentHP() {
@@ -248,8 +265,19 @@ public class PlayerInstance {
         return 25;
     }
 
+    public void addNearbyPlayer(PlayerInstance _player) {
+        this.nearbyPlayers.put(_player.getId(), _player);
+    }
+
     public void sendPacket(OutgoingGameClientPacketInterface _packet) {
         this.network.sendPacket(_packet);
     }
 
+    public void broadcast(OutgoingGameClientPacketInterface _packet) {
+        this.network.sendPacket(_packet);
+
+        for (PlayerInstance player : this.nearbyPlayers.values()) {
+            player.sendPacket(_packet);
+        }
+    }
 }

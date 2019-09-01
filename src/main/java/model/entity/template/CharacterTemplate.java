@@ -3,6 +3,7 @@ package model.entity.template;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "template_character")
@@ -17,6 +18,14 @@ public class CharacterTemplate {
     @ManyToOne
     @JoinColumn(name="fk_race_id", nullable=false)
     private RaceTemplate race;
+
+    @ManyToOne
+    @JoinColumn(name="fk_parent_id", nullable = true)
+    private CharacterTemplate parent;
+
+    @ManyToOne
+    @JoinColumn(name="fk_ancestor_id", nullable = true)
+    private CharacterTemplate ancestor;
 
     @Column(unique = true)
     private String name;
@@ -40,12 +49,20 @@ public class CharacterTemplate {
     private int baseMen;
 
 
-    public int getId() {
+    public int getClassId() {
         return this.id;
+    }
+
+    public int getBaseClassId() {
+        return Objects.requireNonNullElse(ancestor, this).getClassId();
     }
 
     public RaceTemplate getRace() {
         return this.race;
+    }
+
+    public CharacterTemplate getParent() {
+        return this.parent;
     }
 
     public int getBaseSTR() {

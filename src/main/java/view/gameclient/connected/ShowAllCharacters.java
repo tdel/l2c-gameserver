@@ -37,7 +37,7 @@ public class ShowAllCharacters implements OutgoingGameClientPacketInterface {
             CharacterAppearence appearence = l2char.getAppearence();
             _writer.writeD(appearence.getSex().ordinal()); // sex
             _writer.writeD(l2char.getTemplate().getRace().getId()); // raceid
-            _writer.writeD(l2char.getTemplate().getId()); // base classid
+            _writer.writeD(l2char.getTemplate().getClassId()); // base classid
 
             _writer.writeD(0x01); // gameservername
 
@@ -77,7 +77,7 @@ public class ShowAllCharacters implements OutgoingGameClientPacketInterface {
             _writer.writeF(100); // max MP
 
             _writer.writeD(0); // delete timer
-            _writer.writeD(l2char.getTemplate().getId()); // classid actuel, pas la base
+            _writer.writeD(l2char.getTemplate().getClassId()); // classid actuel, pas la base
             _writer.writeD(0x00); // activeId ? pour le mettre en premier plan je pense
 
             _writer.writeC(0); // enchant level

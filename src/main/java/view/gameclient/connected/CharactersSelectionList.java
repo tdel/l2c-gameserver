@@ -21,7 +21,7 @@ public class CharactersSelectionList implements OutgoingGameClientPacketInterfac
         _writer.writeD(0);
         for (CharacterTemplate charTemplate : this.charsTemplate) {
             _writer.writeD(charTemplate.getRace().getId());
-            _writer.writeD(charTemplate.getId());
+            _writer.writeD(charTemplate.getClassId());
 
             _writer.writeD(0x46);
             _writer.writeD(charTemplate.getBaseSTR());

@@ -24,9 +24,10 @@ public class RequestValidatePosition implements IncomingGameClientPacketInterfac
         int playerX = player.getX();
         int playerY = player.getY();
         int playerZ = player.getZ();
+        int playerHeading = player.getHeading();
 
-        logger.info("Client position : [ x: " + x + ", y: " + y + ", z: " + z + "]");
-        logger.info("ServerPosition : [ x: " + playerX + ", y: " + playerY + ", z: " + playerZ + "]");
+        logger.info("Client position : [ x: " + x + ", y: " + y + ", z: " + z + ", heading: " + heading + "]");
+        logger.info("ServerPosition : [ x: " + playerX + ", y: " + playerY + ", z: " + playerZ + ", heading:" + playerHeading + "]");
 
         player.setCoordinates(x, y, z, heading);
 

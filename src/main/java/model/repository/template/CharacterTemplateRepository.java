@@ -7,6 +7,7 @@ import model.repository.PreloadableRepositoryInterface;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CharacterTemplateRepository implements PreloadableRepositoryInterface {
@@ -32,17 +33,24 @@ public class CharacterTemplateRepository implements PreloadableRepositoryInterfa
         return this.charsTemplate;
     }
 
-    public CharacterTemplate findOneById(int _id) {
-        EntityManager em = this.provider.get();
+    public List<CharacterTemplate> findAllBaseClasses() {
+        List<CharacterTemplate> templates = new ArrayList<>();
+        for (CharacterTemplate template : this.charsTemplate) {
+            if (template.getParent() == null) {
+                templates.add(template);
+            }
+        }
 
-        return em.find(CharacterTemplate.class, _id);
-        /*
+        return templates;
+    }
+
+    public CharacterTemplate findOneById(int _classId) {
         for (CharacterTemplate charTemplate : this.charsTemplate) {
-            if (charTemplate.getId() == _id) {
+            if (charTemplate.getClassId() == _classId) {
                 return charTemplate;
             }
         }
 
-        return null;*/
+        return null;
     }
 }

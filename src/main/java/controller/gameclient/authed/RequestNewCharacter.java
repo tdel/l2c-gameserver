@@ -21,7 +21,7 @@ public class RequestNewCharacter implements IncomingGameClientPacketInterface {
 
     @Override
     public void execute(PacketReader _reader, GameClientChannelHandler _client) {
-        List<CharacterTemplate> charsTemplate = this.ctRepository.findAll();
+        List<CharacterTemplate> charsTemplate = this.ctRepository.findAllBaseClasses();
 
         _client.sendPacket(new CharactersSelectionList(charsTemplate));
     }

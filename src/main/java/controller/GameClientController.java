@@ -9,6 +9,7 @@ import controller.gameclient.connected.CheckProtocolVersion;
 import controller.gameclient.authed.RequestCharacterCreation;
 import controller.gameclient.authed.RequestNewCharacter;
 import controller.gameclient.ingame.RequestMoveToLocation;
+import controller.gameclient.ingame.RequestShowMinimap;
 import controller.gameclient.ingame.RequestValidatePosition;
 import controller.gameclient.loadinggame.EnterWorld;
 import network.gameclient.GameClientChannelHandler;
@@ -57,6 +58,7 @@ public class GameClientController {
             {
                 put(0x0F, _controllers.get(RequestMoveToLocation.class));
                 put(0x59, _controllers.get(RequestValidatePosition.class));
+                put(0x6C, _controllers.get(RequestShowMinimap.class));
             }
         });
     }

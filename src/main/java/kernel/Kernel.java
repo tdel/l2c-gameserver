@@ -1,7 +1,6 @@
 package kernel;
 
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,19 +8,15 @@ import java.util.*;
 
 public class Kernel {
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger("kernel");
 
     private KernelStatus status;
 
-    private Map<String, Object> configuration;
     private final Set<KernelModuleInterface> modules;
-
-    private Injector injector;
 
     @Inject
     public Kernel(Set<KernelModuleInterface> _modules) {
         this.status = KernelStatus.STOPED;
-        this.configuration = new HashMap<>();
         this.modules = _modules;
     }
 
@@ -30,13 +25,11 @@ public class Kernel {
         this.status = _status;
     }
 
-    public void start(Injector _injector) throws Exception {
+    public void start() throws Exception {
         if (this.status != KernelStatus.STOPED) {
             throw new IllegalStateException("Kernel must be stopped to be started !");
         }
         this.setStatus(KernelStatus.STARTING);
-
-        this.injector = _injector;
 
         for (KernelModuleInterface module : this.modules) {
             logger.info("Loading module : " + module.getClass().getName());
@@ -60,7 +53,4 @@ public class Kernel {
         this.setStatus(KernelStatus.STOPED);
     }
 
-    public <T> T getService(Class<T> _class) {
-        return this.injector.getInstance(_class);
-    }
 }

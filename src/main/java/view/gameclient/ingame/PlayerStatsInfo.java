@@ -57,7 +57,7 @@ public class PlayerStatsInfo implements OutgoingGameClientPacketInterface {
         _writer.writeD(this.player.getCharacter().getTemplate().getRace().getId());
         _writer.writeD(this.player.getCharacter().getAppearence().getSex().ordinal());
 
-        _writer.writeD(this.player.getCharacter().getTemplate().getId());
+        _writer.writeD(this.player.getCharacter().getTemplate().getClassId());
 
         _writer.writeD(this.player.getLevel());
         _writer.writeQ(this.player.getExp());

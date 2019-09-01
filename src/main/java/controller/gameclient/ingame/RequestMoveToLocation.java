@@ -26,15 +26,15 @@ public class RequestMoveToLocation implements IncomingGameClientPacketInterface 
         int movementMode = _reader.readD();
 
 
-        targetZ += player.getCollisionHeight();
-
-        /*
+        //targetZ += player.getCollisionHeight(); // geodata ?
         if ((targetX == originX) && (targetY == originY) && (targetZ == originZ)) {
             _client.sendPacket(new StopMove(player.getId(), originX, originY, originZ, player.getHeading()));
 
             _client.sendPacket(new ActionFail());
-        }*/
+        }
 
-        _client.sendPacket(new MoveToLocation(player.getId(), originX, originY, originZ, targetX, targetY, targetZ));
+        player.setDestinationCoordinates(targetX, targetY, targetZ);
+
+        player.broadcast(new MoveToLocation(player.getId(), originX, originY, originZ, targetX, targetY, targetZ));
     }
 }
