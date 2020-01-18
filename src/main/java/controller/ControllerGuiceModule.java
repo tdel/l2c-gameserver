@@ -3,9 +3,7 @@ package controller;
 import com.google.inject.Singleton;
 import controller.gameclient.authed.*;
 import controller.gameclient.connected.*;
-import controller.gameclient.ingame.RequestMoveToLocation;
-import controller.gameclient.ingame.RequestShowMinimap;
-import controller.gameclient.ingame.RequestValidatePosition;
+import controller.gameclient.ingame.*;
 import controller.gameclient.loadinggame.EnterWorld;
 import controller.gameclient.loadinggame.ex.RequestKeyMapping;
 import controller.gameclient.loadinggame.ex.RequestManorList;
@@ -27,6 +25,11 @@ public class ControllerGuiceModule extends AbstractApplicationModule {
         this.bindToPacketInterface(RequestMoveToLocation.class);
         this.bindToPacketInterface(RequestValidatePosition.class);
         this.bindToPacketInterface(RequestShowMinimap.class);
+        this.bindToPacketInterface(RequestTargetCancel.class);
+        this.bindToPacketInterface(RequestLogout.class);
+        this.bindToPacketInterface(RequestRestart.class);
+        this.bindToPacketInterface(RequestSkillList.class);
+        this.bindToPacketInterface(RequestMagicSkillUse.class);
 
         this.bindToPacketInterfaceEX(RequestGoToCharacterSelection.class);
         this.bindToPacketInterfaceEX(RequestManorList.class);

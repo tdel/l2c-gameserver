@@ -9,6 +9,7 @@ import database.DatabaseGuiceModule;
 import kernel.Kernel;
 import kernel.KernelGuiceModule;
 import model.repository.RepositoryGuiceModule;
+import model.service.ServiceGuiceModule;
 import network.NetworkGuiceModule;
 
 
@@ -21,6 +22,7 @@ public class Main {
                 new ConfigGuiceModule("src/main/resources/app.properties"),
                 new DatabaseGuiceModule(),
                 new RepositoryGuiceModule(),
+                new ServiceGuiceModule(),
                 new ControllerGuiceModule(),
                 new NetworkGuiceModule()
         );

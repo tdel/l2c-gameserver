@@ -2,8 +2,9 @@ package controller.gameclient.authed;
 
 import com.google.inject.Inject;
 import model.entity.L2Character;
-import model.entity.instance.PlayerInstance;
+import model.instance.PlayerInstance;
 import model.repository.Entity.L2CharacterRepository;
+import model.service.World;
 import network.gameclient.GameClientChannelHandler;
 import network.gameclient.GameClientConnectionState;
 import network.gameclient.packets.IncomingGameClientPacketInterface;
@@ -15,9 +16,11 @@ public class RequestCharacterSelection implements IncomingGameClientPacketInterf
 
 
     private final L2CharacterRepository charsRepository;
+    private final World world;
 
     @Inject
-    public RequestCharacterSelection(L2CharacterRepository _charsRepository) {
+    public RequestCharacterSelection(World _world, L2CharacterRepository _charsRepository) {
+        this.world = _world;
         this.charsRepository = _charsRepository;
     }
 
@@ -27,7 +30,7 @@ public class RequestCharacterSelection implements IncomingGameClientPacketInterf
 
         L2Character character = this.charsRepository.findOneBySlot(1, charSlot);
 
-        PlayerInstance player = new PlayerInstance(1, character, _client);
+        PlayerInstance player = new PlayerInstance(this.world, character.getId(), character, _client);
 
 
         _client.setPlayerInstance(player);

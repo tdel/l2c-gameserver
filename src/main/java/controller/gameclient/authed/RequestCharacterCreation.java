@@ -3,10 +3,10 @@ package controller.gameclient.authed;
 import com.google.inject.Inject;
 import model.entity.L2Character;
 import model.entity.embeddable.CharacterAppearence;
-import model.entity.enumerate.CharacterSex;
 import model.entity.template.CharacterTemplate;
 import model.repository.Entity.L2CharacterRepository;
 import model.repository.template.CharacterTemplateRepository;
+import model.repository.template.SexTemplateRepository;
 import network.gameclient.GameClientChannelHandler;
 import network.gameclient.packets.IncomingGameClientPacketInterface;
 import network.gameclient.packets.PacketReader;
@@ -16,11 +16,13 @@ public class RequestCharacterCreation implements IncomingGameClientPacketInterfa
 
     private final CharacterTemplateRepository ctRepository;
     private final L2CharacterRepository charRepository;
+    private final SexTemplateRepository sexRepository;
 
     @Inject
-    public RequestCharacterCreation(CharacterTemplateRepository _ctRepository, L2CharacterRepository _charRepository) {
+    public RequestCharacterCreation(CharacterTemplateRepository _ctRepository, L2CharacterRepository _charRepository, SexTemplateRepository _sexRepository) {
         this.ctRepository = _ctRepository;
         this.charRepository = _charRepository;
+        this.sexRepository = _sexRepository;
     }
 
     @Override
@@ -55,7 +57,7 @@ public class RequestCharacterCreation implements IncomingGameClientPacketInterfa
         charAppearence.setFace(face);
         charAppearence.setHairStyle(hairStyle);
         charAppearence.setHairColor(hairColor);
-        charAppearence.setSex(CharacterSex.fromByte(sex));
+        charAppearence.setSex(this.sexRepository.findOneBy(sex));
 
         L2Character l2char = new L2Character();
         l2char.setTemplate(charTemplate);

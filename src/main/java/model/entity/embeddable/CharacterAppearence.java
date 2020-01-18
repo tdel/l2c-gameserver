@@ -1,6 +1,6 @@
 package model.entity.embeddable;
 
-import model.entity.enumerate.CharacterSex;
+import model.entity.template.SexTemplate;
 
 import javax.persistence.*;
 
@@ -16,9 +16,9 @@ public class CharacterAppearence {
     @Column(name="hair_style")
     private byte hairStyle;
 
-    @Enumerated
-    @Column(columnDefinition = "smallint")
-    private CharacterSex sex; // female = true (1)
+    @ManyToOne
+    @JoinColumn(name = "fk_sex_id", referencedColumnName = "id")
+    private SexTemplate sex;
 
 
     public byte getFace() {
@@ -42,11 +42,11 @@ public class CharacterAppearence {
         this.hairStyle = _hairStyle;
     }
 
-    public CharacterSex getSex() {
+    public SexTemplate getSex() {
         return this.sex;
     }
 
-    public void setSex(CharacterSex _sex) {
+    public void setSex(SexTemplate _sex) {
         this.sex = _sex;
     }
 

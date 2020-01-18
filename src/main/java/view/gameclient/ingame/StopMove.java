@@ -1,5 +1,6 @@
 package view.gameclient.ingame;
 
+import model.instance.Coordinate;
 import network.gameclient.packets.OutgoingGameClientPacketInterface;
 import network.gameclient.packets.PacketWriter;
 
@@ -17,6 +18,16 @@ public class StopMove implements OutgoingGameClientPacketInterface {
         this.y = _y;
         this.z = _z;
         this.heading = _heading;
+    }
+
+    public StopMove(int _objectId, Coordinate _coordinate) {
+        this(
+                _objectId,
+                _coordinate.getX(),
+                _coordinate.getY(),
+                _coordinate.getZ(),
+                _coordinate.getHeading()
+        );
     }
 
     @Override

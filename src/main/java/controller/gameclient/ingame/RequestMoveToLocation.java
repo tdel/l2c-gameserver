@@ -1,12 +1,9 @@
 package controller.gameclient.ingame;
 
-import model.entity.instance.PlayerInstance;
+import model.instance.PlayerInstance;
 import network.gameclient.GameClientChannelHandler;
 import network.gameclient.packets.IncomingGameClientPacketInterface;
 import network.gameclient.packets.PacketReader;
-import view.gameclient.ingame.ActionFail;
-import view.gameclient.ingame.MoveToLocation;
-import view.gameclient.ingame.StopMove;
 
 public class RequestMoveToLocation implements IncomingGameClientPacketInterface {
 
@@ -25,16 +22,6 @@ public class RequestMoveToLocation implements IncomingGameClientPacketInterface 
 
         int movementMode = _reader.readD();
 
-
-        //targetZ += player.getCollisionHeight(); // geodata ?
-        if ((targetX == originX) && (targetY == originY) && (targetZ == originZ)) {
-            _client.sendPacket(new StopMove(player.getId(), originX, originY, originZ, player.getHeading()));
-
-            _client.sendPacket(new ActionFail());
-        }
-
         player.setDestinationCoordinates(targetX, targetY, targetZ);
-
-        player.broadcast(new MoveToLocation(player.getId(), originX, originY, originZ, targetX, targetY, targetZ));
     }
 }

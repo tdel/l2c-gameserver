@@ -16,9 +16,7 @@ public class LoginServerClient {
     private static final Logger logger = LogManager.getLogger();
 
     private EventLoopGroup workerGroup;
-
     private ChannelInitializer channelInitializer;
-
     private ChannelFuture channel;
 
     @Inject

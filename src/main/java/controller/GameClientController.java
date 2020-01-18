@@ -8,9 +8,7 @@ import controller.gameclient.connected.AuthLogin;
 import controller.gameclient.connected.CheckProtocolVersion;
 import controller.gameclient.authed.RequestCharacterCreation;
 import controller.gameclient.authed.RequestNewCharacter;
-import controller.gameclient.ingame.RequestMoveToLocation;
-import controller.gameclient.ingame.RequestShowMinimap;
-import controller.gameclient.ingame.RequestValidatePosition;
+import controller.gameclient.ingame.*;
 import controller.gameclient.loadinggame.EnterWorld;
 import network.gameclient.GameClientChannelHandler;
 import network.gameclient.GameClientConnectionState;
@@ -59,6 +57,10 @@ public class GameClientController {
                 put(0x0F, _controllers.get(RequestMoveToLocation.class));
                 put(0x59, _controllers.get(RequestValidatePosition.class));
                 put(0x6C, _controllers.get(RequestShowMinimap.class));
+                put(0x00, _controllers.get(RequestLogout.class));
+                put(0x57, _controllers.get(RequestRestart.class));
+                put(0x50, _controllers.get(RequestSkillList.class));
+                put(0x39, _controllers.get(RequestMagicSkillUse.class));
             }
         });
     }
@@ -78,7 +80,7 @@ public class GameClientController {
         if (null == provider) {
             // maybe EX ?
             if (packetId != 0xd0) {
-                logger.error("Provider not found : 0x" + String.format("%02X", packetId) + " - state " + _client.getState());
+                logger.error(_client.getPlayerName() + " : Provider not found : 0x" + String.format("%02X", packetId) + " - state " + _client.getState());
                 return null;
             }
 
@@ -88,14 +90,14 @@ public class GameClientController {
         }
 
         if (null == packet) {
-            logger.error("Provider not loaded : 0x" + String.format("%02X", packetId) + " - state " + _client.getState());
+            logger.error(_client.getPlayerName() + "Provider not loaded : 0x" + String.format("%02X", packetId) + " - state " + _client.getState());
             logger.error("Buffer : " + _reader.toString());
 
             return null;
         }
 
 
-        logger.info("Packet found 0x" + String.format("%02X", packetId) + " <" + packet.getClass().getName() + ">");
+        logger.info(_client.getPlayerName() + "Packet found 0x" + String.format("%02X", packetId) + " <" + packet.getClass().getName() + ">");
 
         return packet;
     }

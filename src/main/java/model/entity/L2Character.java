@@ -2,8 +2,11 @@ package model.entity;
 
 import model.entity.embeddable.CharacterAppearence;
 import model.entity.template.CharacterTemplate;
+import model.entity.template.SkillLevelTemplate;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "l2character")
@@ -26,6 +29,18 @@ public class L2Character {
     @Embedded
     private CharacterAppearence appearence;
 
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "character_skill_list",
+            joinColumns = { @JoinColumn(name = "fk_character_id") },
+            inverseJoinColumns = { @JoinColumn(name = "fk_skilllevel_id") }
+    )
+    private Set<SkillLevelTemplate> skills = new HashSet<>();
+
+
+    public Set<SkillLevelTemplate> getSkills() {
+        return this.skills;
+    }
 
     public int getId() {
         return this.id;

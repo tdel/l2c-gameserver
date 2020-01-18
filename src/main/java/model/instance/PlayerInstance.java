@@ -1,13 +1,20 @@
-package model.entity.instance;
+package model.instance;
 
 import model.entity.L2Character;
+import model.entity.template.SkillLevelTemplate;
+import model.service.World;
 import network.gameclient.GameClientChannelHandler;
 import network.gameclient.packets.OutgoingGameClientPacketInterface;
+import view.gameclient.ingame.ActionFail;
+import view.gameclient.ingame.MoveToLocation;
+import view.gameclient.ingame.StopMove;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class PlayerInstance {
+
+    private final World world;
 
     private int id;
     private GameClientChannelHandler network;
@@ -19,26 +26,17 @@ public class PlayerInstance {
     private int mp;
     private int inventoryLoad;
 
-    private int x;
-    private int y;
-    private int z;
-    private int heading;
-
-    private int destinationX;
-    private int destinationY;
-    private int destinationZ;
+    private Coordinate coordinate;
+    private Coordinate destination;
 
     private boolean pvpFlag;
 
-    private Map<Integer, PlayerInstance> nearbyPlayers;
+    public PlayerInstance(World _world, int _id, L2Character _character, GameClientChannelHandler _network) {
+        this.world =_world;
 
-
-    public PlayerInstance(int _id, L2Character _character, GameClientChannelHandler _network) {
         this.id = _id;
         this.character = _character;
         this.network = _network;
-
-        this.nearbyPlayers = new HashMap<>();
 
         this.title = "";
 
@@ -46,10 +44,7 @@ public class PlayerInstance {
         this.mp = 100;
         this.inventoryLoad = 0;
 
-        this.x = 46934;
-        this.y = 51467;
-        this.z = -2927; // -2977;
-        this.heading = 0;
+        this.coordinate = new Coordinate(46934, 51467, -2927, 0);
 
         this.pvpFlag = false;
     }
@@ -67,41 +62,52 @@ public class PlayerInstance {
         return this.character.getLogin();
     }
 
+    public int getNameColor() {
+        return 255; // white ?
+    }
+
     public String getTitle() {
         return this.title;
+    }
+
+    public int getTitleColor() {
+        return 255;
     }
 
     public int getClanId() {
         return 0;
     }
 
-    public int getX() {
-        return this.x;
-    }
-
-    public int getY() {
-        return this.y;
-    }
-
-    public int getZ() {
-        return this.z;
+    public Coordinate getCoordinate() {
+        return this.coordinate;
     }
 
     public int getHeading() {
-        return this.heading;
+        return this.coordinate.getHeading();
     }
 
     public void setCoordinates(int _x, int _y, int _z, int _heading) {
-        this.x = _x;
-        this.y = _y;
-        this.z = _z;
-        this.heading = _heading;
+        this.coordinate.setCoordinate(_x, _y, _z, _heading);
+    }
+
+    public boolean isInRange(Coordinate _coordinate, int _radius) {
+        return true;
+        //return this.coordinate.calculateDistance3D(_coordinate) <= _radius;
     }
 
     public void setDestinationCoordinates(int _x, int _y, int _z) {
-        this.destinationX = _x;
-        this.destinationY = _y;
-        this.destinationZ = _z;
+        //targetZ += player.getCollisionHeight(); // geodata ?
+
+        this.destination = new Coordinate(_x, _y, _z);
+
+        if (this.coordinate.isSameCoordinate(_x, _y, _z)) {
+            this.sendPacket(new StopMove(this.getId(), this.getCoordinate()));
+            this.sendPacket(new ActionFail());
+
+            return;
+        }
+
+        this.broadcast(new MoveToLocation(this.getId(), this.getCoordinate(), this.destination));
     }
 
     public int getCurrentHP() {
@@ -265,8 +271,25 @@ public class PlayerInstance {
         return 25;
     }
 
-    public void addNearbyPlayer(PlayerInstance _player) {
-        this.nearbyPlayers.put(_player.getId(), _player);
+
+    public boolean isStanding() {
+        return true;
+    }
+
+    public boolean isRunning() {
+        return true;
+    }
+
+    public boolean isInCombat() {
+        return false;
+    }
+
+    public boolean isInvisible() {
+        return false;
+    }
+
+    public Set<SkillLevelTemplate> getSkills() {
+        return this.character.getSkills();
     }
 
     public void sendPacket(OutgoingGameClientPacketInterface _packet) {
@@ -276,7 +299,9 @@ public class PlayerInstance {
     public void broadcast(OutgoingGameClientPacketInterface _packet) {
         this.network.sendPacket(_packet);
 
-        for (PlayerInstance player : this.nearbyPlayers.values()) {
+        Map<Integer, PlayerInstance> playersInRange = this.world.getPlayersInRange(this, 3600);
+
+        for (PlayerInstance player : playersInRange.values()) {
             player.sendPacket(_packet);
         }
     }

@@ -1,14 +1,13 @@
 package view.gameclient.ingame;
 
 import model.entity.Inventory;
-import model.entity.instance.PlayerInstance;
+import model.instance.PlayerInstance;
 import network.gameclient.packets.OutgoingGameClientPacketInterface;
 import network.gameclient.packets.PacketWriter;
 
 public class PlayerStatsInfo implements OutgoingGameClientPacketInterface {
 
-    int[] PAPERDOLL_ORDER = new int[]
-            {
+    private int[] PAPERDOLL_ORDER = new int[] {
                     Inventory.PAPERDOLL_UNDER,
                     Inventory.PAPERDOLL_REAR,
                     Inventory.PAPERDOLL_LEAR,
@@ -37,7 +36,7 @@ public class PlayerStatsInfo implements OutgoingGameClientPacketInterface {
                     Inventory.PAPERDOLL_BELT
             };
 
-    private PlayerInstance player;
+    private final PlayerInstance player;
 
     public PlayerStatsInfo(PlayerInstance _player) {
         this.player = _player;
@@ -47,15 +46,15 @@ public class PlayerStatsInfo implements OutgoingGameClientPacketInterface {
     public void write(PacketWriter _writer) {
         _writer.writeC(0x32);
 
-        _writer.writeD(this.player.getX());
-        _writer.writeD(this.player.getY());
-        _writer.writeD(this.player.getZ());
+        _writer.writeD(this.player.getCoordinate().getX());
+        _writer.writeD(this.player.getCoordinate().getY());
+        _writer.writeD(this.player.getCoordinate().getZ());
         _writer.writeD(0); // vehicule
 
         _writer.writeD(this.player.getId());
         _writer.writeS(this.player.getName());
         _writer.writeD(this.player.getCharacter().getTemplate().getRace().getId());
-        _writer.writeD(this.player.getCharacter().getAppearence().getSex().ordinal());
+        _writer.writeD(this.player.getCharacter().getAppearence().getSex().getId());
 
         _writer.writeD(this.player.getCharacter().getTemplate().getClassId());
 
@@ -143,7 +142,7 @@ public class PlayerStatsInfo implements OutgoingGameClientPacketInterface {
 
 
         _writer.writeC(0); // party matching
-        _writer.writeD(0); // stealth
+        _writer.writeD(this.player.isInvisible() ? 1 : 0); // stealth
         _writer.writeD(0); // clan priviledge
 
         _writer.writeH(0); // recommandation left
@@ -166,12 +165,12 @@ public class PlayerStatsInfo implements OutgoingGameClientPacketInterface {
         _writer.writeD(0); // fish X
         _writer.writeD(0); // fish y
         _writer.writeD(0); // fish z
-        _writer.writeD(255); // color name
+        _writer.writeD(this.player.getNameColor()); // color name
 
-        _writer.writeC(0); // running ?
+        _writer.writeC(this.player.isRunning() ? 1 : 0); // running ?
         _writer.writeD(0);// pledgeclass
         _writer.writeD(0); // pdledge type
-        _writer.writeD(255); // title color
+        _writer.writeD(this.player.getTitleColor()); // title color
 
         _writer.writeD(0); // cursed !
 

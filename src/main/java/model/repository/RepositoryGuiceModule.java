@@ -4,6 +4,7 @@ import com.google.inject.Singleton;
 import main.AbstractApplicationModule;
 import model.repository.template.CharacterTemplateRepository;
 import model.repository.template.RaceTemplateRepository;
+import model.repository.template.SexTemplateRepository;
 
 public class RepositoryGuiceModule extends AbstractApplicationModule {
 
@@ -15,6 +16,7 @@ public class RepositoryGuiceModule extends AbstractApplicationModule {
 
         this.bindToPreloadable(CharacterTemplateRepository.class);
         this.bindToPreloadable(RaceTemplateRepository.class);
+        this.bindToPreloadable(SexTemplateRepository.class);
     }
 
     private void bindToPreloadable(Class<? extends PreloadableRepositoryInterface> _class) {

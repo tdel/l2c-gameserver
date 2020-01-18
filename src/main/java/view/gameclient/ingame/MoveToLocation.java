@@ -1,5 +1,6 @@
 package view.gameclient.ingame;
 
+import model.instance.Coordinate;
 import network.gameclient.packets.OutgoingGameClientPacketInterface;
 import network.gameclient.packets.PacketWriter;
 
@@ -24,6 +25,17 @@ public class MoveToLocation implements OutgoingGameClientPacketInterface {
         this.targetX = _targetX;
         this.targetY = _targetY;
         this.targetZ = _targetZ;
+    }
+    public MoveToLocation(int _objectId, Coordinate _origin, Coordinate _target) {
+        this(
+                _objectId,
+                _origin.getX(),
+                _origin.getY(),
+                _origin.getZ(),
+                _target.getX(),
+                _target.getY(),
+                _target.getZ()
+        );
     }
 
     @Override

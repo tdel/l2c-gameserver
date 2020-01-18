@@ -35,7 +35,7 @@ public class ShowAllCharacters implements OutgoingGameClientPacketInterface {
             _writer.writeD(0x00); // builder level ?
 
             CharacterAppearence appearence = l2char.getAppearence();
-            _writer.writeD(appearence.getSex().ordinal()); // sex
+            _writer.writeD(appearence.getSex().getId()); // sex
             _writer.writeD(l2char.getTemplate().getRace().getId()); // raceid
             _writer.writeD(l2char.getTemplate().getClassId()); // base classid
 

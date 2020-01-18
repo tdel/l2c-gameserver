@@ -7,14 +7,11 @@ import model.repository.PreloadableRepositoryInterface;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CharacterTemplateRepository implements PreloadableRepositoryInterface {
 
     private Provider<EntityManager> provider;
-
-    private List<CharacterTemplate> charsTemplate;
 
     @Inject
     public CharacterTemplateRepository(Provider<EntityManager> _provider) {
@@ -23,34 +20,28 @@ public class CharacterTemplateRepository implements PreloadableRepositoryInterfa
 
     @Override
     public void preload() {
-        EntityManager em = this.provider.get();
-        TypedQuery<CharacterTemplate> query = em.createQuery("SELECT ct FROM CharacterTemplate ct", CharacterTemplate.class);
-
-        this.charsTemplate = query.getResultList();
+        this.findAll();
     }
 
     public List<CharacterTemplate> findAll() {
-        return this.charsTemplate;
+        EntityManager em = this.provider.get();
+        TypedQuery<CharacterTemplate> query = em.createQuery("SELECT ct FROM CharacterTemplate ct", CharacterTemplate.class);
+
+        return query.getResultList();
     }
 
     public List<CharacterTemplate> findAllBaseClasses() {
-        List<CharacterTemplate> templates = new ArrayList<>();
-        for (CharacterTemplate template : this.charsTemplate) {
-            if (template.getParent() == null) {
-                templates.add(template);
-            }
-        }
+        EntityManager em = this.provider.get();
+        TypedQuery<CharacterTemplate> query = em.createQuery("SELECT ct FROM CharacterTemplate ct WHERE ct.parent IS NULL", CharacterTemplate.class);
 
-        return templates;
+        return query.getResultList();
     }
 
     public CharacterTemplate findOneById(int _classId) {
-        for (CharacterTemplate charTemplate : this.charsTemplate) {
-            if (charTemplate.getClassId() == _classId) {
-                return charTemplate;
-            }
-        }
+        EntityManager em = this.provider.get();
+        TypedQuery<CharacterTemplate> query = em.createQuery("SELECT ct FROM CharacterTemplate ct WHERE ct.id = :classId", CharacterTemplate.class);
+        query.setParameter("classId", _classId);
 
-        return null;
+        return query.getSingleResult();
     }
 }

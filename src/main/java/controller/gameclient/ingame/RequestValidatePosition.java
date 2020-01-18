@@ -1,6 +1,6 @@
 package controller.gameclient.ingame;
 
-import model.entity.instance.PlayerInstance;
+import model.instance.PlayerInstance;
 import network.gameclient.GameClientChannelHandler;
 import network.gameclient.packets.IncomingGameClientPacketInterface;
 import network.gameclient.packets.PacketReader;
@@ -21,10 +21,10 @@ public class RequestValidatePosition implements IncomingGameClientPacketInterfac
         int data = _reader.readD();
 
         PlayerInstance player = _client.getPlayer();
-        int playerX = player.getX();
-        int playerY = player.getY();
-        int playerZ = player.getZ();
-        int playerHeading = player.getHeading();
+        int playerX = player.getCoordinate().getX();
+        int playerY = player.getCoordinate().getY();
+        int playerZ = player.getCoordinate().getZ();
+        int playerHeading = player.getCoordinate().getHeading();
 
         logger.info("Client position : [ x: " + x + ", y: " + y + ", z: " + z + ", heading: " + heading + "]");
         logger.info("ServerPosition : [ x: " + playerX + ", y: " + playerY + ", z: " + playerZ + ", heading:" + playerHeading + "]");

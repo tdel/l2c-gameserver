@@ -1,7 +1,7 @@
 package network.gameclient;
 
 import controller.GameClientController;
-import model.entity.instance.PlayerInstance;
+import model.instance.PlayerInstance;
 import network.gameclient.packets.IncomingGameClientPacketInterface;
 import network.gameclient.packets.OutgoingGameClientPacketInterface;
 import network.gameclient.packets.PacketReader;
@@ -41,6 +41,13 @@ public class GameClientChannelHandler extends ChannelInboundHandlerAdapter {
     }
     public PlayerInstance getPlayer() {
         return this.player;
+    }
+    public String getPlayerName() {
+        if (null == this.player) {
+            return "N/A";
+        }
+
+        return this.player.getName();
     }
 
     public void setLogin(String _login) {

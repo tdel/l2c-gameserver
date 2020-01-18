@@ -1,6 +1,6 @@
 package view.gameclient.authed;
 
-import model.entity.instance.PlayerInstance;
+import model.instance.PlayerInstance;
 import network.gameclient.packets.OutgoingGameClientPacketInterface;
 import network.gameclient.packets.PacketWriter;
 
@@ -26,13 +26,13 @@ public class CharacterSelected implements OutgoingGameClientPacketInterface {
         _writer.writeD(this.player.getClanId()); // getClan().getId();
 
         _writer.writeD(0x00); // ?
-        _writer.writeD(this.player.getCharacter().getAppearence().getSex().ordinal());
+        _writer.writeD(this.player.getCharacter().getAppearence().getSex().getId());
         _writer.writeD(this.player.getCharacter().getTemplate().getRace().getId()); // race
         _writer.writeD(this.player.getCharacter().getTemplate().getClassId());
         _writer.writeD(0x01); // active ?
-        _writer.writeD(this.player.getX());
-        _writer.writeD(this.player.getY());
-        _writer.writeD(this.player.getZ());
+        _writer.writeD(this.player.getCoordinate().getX());
+        _writer.writeD(this.player.getCoordinate().getY());
+        _writer.writeD(this.player.getCoordinate().getZ());
 
         _writer.writeF(this.player.getCurrentHP());
         _writer.writeF(this.player.getCurrentMP());

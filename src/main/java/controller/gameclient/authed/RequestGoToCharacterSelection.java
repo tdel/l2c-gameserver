@@ -26,9 +26,4 @@ public class RequestGoToCharacterSelection implements ExPacketInterface {
         _client.sendPacket(new ShowAllCharacters(chars));
     }
 
-    public void directCall(GameClientChannelHandler _client) {
-        List<L2Character> chars = this.charsRepository.getAllByAccountId(1);
-
-        _client.sendPacket(new ShowAllCharacters(chars));
-    }
 }
