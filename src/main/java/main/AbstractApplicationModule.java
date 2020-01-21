@@ -3,7 +3,7 @@ package main;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
 import com.google.inject.multibindings.Multibinder;
-import kernel.KernelModuleInterface;
+import kernel.core.KernelModuleInterface;
 
 abstract public class AbstractApplicationModule extends AbstractModule {
 

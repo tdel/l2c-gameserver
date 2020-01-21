@@ -3,14 +3,14 @@ package main;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;
-import configuration.ConfigGuiceModule;
-import controller.ControllerGuiceModule;
-import database.DatabaseGuiceModule;
-import kernel.Kernel;
-import kernel.KernelGuiceModule;
-import model.repository.RepositoryGuiceModule;
-import model.service.ServiceGuiceModule;
-import network.NetworkGuiceModule;
+import kernel.configuration.ConfigGuiceModule;
+import application.core.controller.ControllerGuiceModule;
+import kernel.database.DatabaseGuiceModule;
+import kernel.core.Kernel;
+import kernel.core.KernelGuiceModule;
+import application.model.repository.RepositoryGuiceModule;
+import application.model.service.ServiceGuiceModule;
+import kernel.network.NetworkGuiceModule;
 
 
 public class Main {
