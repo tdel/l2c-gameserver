@@ -1,5 +1,7 @@
-package kernel.configuration;
+package kernel.configuration.dic;
 
+import kernel.configuration.Config;
+import kernel.configuration.kernel.ConfigKernelModule;
 import main.AbstractApplicationModule;
 
 public class ConfigGuiceModule extends AbstractApplicationModule {

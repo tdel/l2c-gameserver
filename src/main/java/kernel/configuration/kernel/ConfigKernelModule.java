@@ -1,6 +1,7 @@
-package kernel.configuration;
+package kernel.configuration.kernel;
 
 import com.google.inject.Inject;
+import kernel.configuration.Config;
 import kernel.core.Kernel;
 import kernel.core.KernelModuleInterface;
 

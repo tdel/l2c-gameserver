@@ -1,4 +1,4 @@
-package kernel.network;
+package kernel.network.kernel;
 
 import kernel.configuration.Config;
 import kernel.core.Kernel;

@@ -1,4 +1,4 @@
-package kernel.database;
+package kernel.database.kernel;
 
 import com.google.inject.Inject;
 import com.google.inject.persist.PersistService;

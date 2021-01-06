@@ -1,7 +1,8 @@
-package kernel.network;
+package kernel.network.dic;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import kernel.network.kernel.NetworkKernelModule;
 import main.AbstractApplicationModule;
 import kernel.network.gameclient.GameClientChannelInitializer;
 import kernel.network.gameclient.GameClientServer;
